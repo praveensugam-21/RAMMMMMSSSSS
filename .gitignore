@@ -1,0 +1,7 @@
+node_modules
+dist
+.DS_Store
+*.local
+
+# Raw copy of the song, the film uses public/assets/audio/memories.mp3
+song/

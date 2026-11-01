@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Letterbox bar height for a 2.39:1 frame, 0 on screens already wider than that */
+  --bar: max(0px, calc((100dvh - 100vw / 2.39) / 2));
+  color-scheme: dark;
+}
+
+/* Phones in portrait get a vertical reframe with thin bars */
+@media (max-aspect-ratio: 4/5) {
+  :root {
+    --bar: 6dvh;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: #0a0a0c;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  overflow: hidden;
+}
+
+/* ── Film look, transform-only keyframes ─────────────────────── */
+
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  17% { transform: translate(-7%, 4%); }
+  33% { transform: translate(5%, -9%); }
+  50% { transform: translate(-3%, 8%); }
+  67% { transform: translate(9%, 2%); }
+  83% { transform: translate(-8%, -5%); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes haze-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(8%, -4%, 0) scale(1.08); }
+}
+
+@keyframes haze-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); }
+  50% { transform: translate3d(-10%, 5%, 0) scale(1); }
+}
+
+@keyframes leak-a {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(12%, 8%, 0) rotate(8deg); }
+}
+
+@keyframes leak-b {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-10%, -6%, 0); }
+}
+
+@keyframes bokeh {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(2.5vw, -3vh, 0) scale(1.08); }
+}
+
+.animate-grain { animation: grain 0.6s steps(6) infinite; }
+.animate-haze-a { animation: haze-a 26s ease-in-out infinite; }
+.animate-haze-b { animation: haze-b 32s ease-in-out infinite; }
+.animate-leak-a { animation: leak-a 18s ease-in-out infinite; }
+.animate-leak-b { animation: leak-b 23s ease-in-out infinite; }
+.animate-bokeh { animation: bokeh 20s ease-in-out infinite; }
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -150% 0; }
+}
+
+@keyframes float-up {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(0.6); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translate3d(14px, -260px, 0) rotate(18deg) scale(1); opacity: 0; }
+}
+
+.animate-shimmer { animation: shimmer 4.5s ease-in-out infinite; }
+
+@keyframes ripple {
+  0% { transform: scale(0.85); opacity: 0.8; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+
+@keyframes ember {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  12% { opacity: 0.9; }
+  100% { transform: translate3d(24px, -105vh, 0); opacity: 0; }
+}
+
+.animate-ripple { animation: ripple 2.7s ease-out infinite; }
+
+@keyframes heart-rise {
+  0% { transform: translate3d(0, 0, 0) rotate(-8deg); opacity: 0; }
+  10% { opacity: var(--heart-opacity, 0.6); }
+  25% { transform: translate3d(var(--sway), -28vh, 0) rotate(6deg); }
+  50% { transform: translate3d(0, -56vh, 0) rotate(-6deg); }
+  75% { transform: translate3d(calc(var(--sway) * -1), -84vh, 0) rotate(8deg); opacity: var(--heart-opacity, 0.6); }
+  100% { transform: translate3d(0, -112vh, 0) rotate(0deg); opacity: 0; }
+}
+
+.animate-heart-rise { animation: heart-rise 16s linear infinite; opacity: 0; will-change: transform; }
+.animate-ember { animation: ember 12s linear infinite; opacity: 0; }
+.animate-float-up { animation: float-up 8s ease-out infinite; opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-grain,
+  .animate-haze-a,
+  .animate-haze-b,
+  .animate-leak-a,
+  .animate-leak-b,
+  .animate-bokeh,
+  .animate-shimmer,
+  .animate-float-up,
+  .animate-ripple,
+  .animate-ember,
+  .animate-heart-rise {
+    animation: none;
+  }
+}
+
+/* Soft scrollbar for the letter */
+[data-scrollable] {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(58, 35, 16, 0.2) transparent;
+}
