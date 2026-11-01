@@ -125,7 +125,7 @@ src/
 
 Static output in `dist/`. The build uses a relative base, so it works at a root domain or a sub-path.
 
-- **GitHub Pages (set up):** every push to `main` builds and publishes through `.github/workflows/deploy.yml`. One-time setting: repo → Settings → Pages → Source: **GitHub Actions**.
+- **GitHub Pages (set up):** every push to `main` builds the film and publishes `dist/` to the `gh-pages` branch (`.github/workflows/deploy.yml`). If Pages is ever off: repo → Settings → Pages → Source: **Deploy from a branch** → `gh-pages` / root.
 - **Vercel:** import the repo, framework "Vite". `vercel.json` is included.
 - **Netlify:** drag `dist/` onto app.netlify.com/drop, or connect the repo (`netlify.toml` is included).
 - **GitHub Pages / any host:** upload the contents of `dist/`.
